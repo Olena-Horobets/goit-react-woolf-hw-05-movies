@@ -1,0 +1,47 @@
+.form {
+  position: relative;
+  width: 600px;
+  height: 40px;
+  margin: 30px auto 60px;
+}
+
+.input {
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
+  border: none;
+  padding: 4px 12px;
+  color: var(--dark-color);
+  background-color: var(--transparent-white);
+  box-shadow: none;
+  transform: scale(1);
+
+  transition: transform 130ms ease-out, box-shadow 130ms ease-out;
+}
+
+.input:focus {
+  outline: none;
+  transform: scale(1.02);
+  box-shadow: var(--item-shadow);
+}
+
+.wrapper {
+  position: absolute;
+  right: 0;
+  top: 0;
+  overflow: hidden;
+  transform: translateX(0%);
+  width: 90px;
+  height: 100%;
+  transition: transform 130ms ease-out;
+}
+
+.input:focus ~ .wrapper {
+  transform: translateX(6%);
+}
+
+.searchRequest {
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--transparent-white);
+}
