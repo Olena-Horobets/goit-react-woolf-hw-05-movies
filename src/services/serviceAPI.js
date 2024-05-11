@@ -21,9 +21,9 @@ export function fetchMovieByQuery({ query, page }) {
   );
 }
 
-export function fetchMovieById({ movieId }) {
+export function fetchMovieById({ id }) {
   return fetchWithErrorHandling(
-    `${BASE_URL}movie/${movieId}?api_key=${KEY}&language=en-US`
+    `${BASE_URL}movie/${id}?api_key=${KEY}&language=en-US`
   );
 }
 

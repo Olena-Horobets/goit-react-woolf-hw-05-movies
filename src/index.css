@@ -1,4 +1,5 @@
-@import-normalize; /* bring in normalize.css styles */
+@import-normalize;
+/* bring in normalize.css styles */
 
 :root {
   --main-bgr-color: #2c394b;
@@ -6,6 +7,8 @@
   --accent-color: #ff4c29;
   --light-grey-color: #334756;
   --white-color: #ffffff;
+  --transparent-white: #ffffffbb;
+  --extra-tr-white: #ffffff77;
 }
 
 body {
@@ -17,9 +20,23 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   background-color: var(--main-bgr-color);
+  color: var(--white-color);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+ul {
+  list-style: none;
+}
+
+p,
+ul,
+h1,
+h2,
+h3 {
+  margin: 0;
+  padding: 0;
 }
