@@ -9,9 +9,9 @@ async function fetchWithErrorHandling(url = '', config = {}) {
     : Promise.reject(new Error('Not found'));
 }
 
-export function fetchTrending({ period, page }) {
+export function fetchTrending({ page }) {
   return fetchWithErrorHandling(
-    `${BASE_URL}trending/movie/${period}?api_key=${KEY}&page=${page}`
+    `${BASE_URL}trending/movie/day?api_key=${KEY}&page=${page}`
   );
 }
 

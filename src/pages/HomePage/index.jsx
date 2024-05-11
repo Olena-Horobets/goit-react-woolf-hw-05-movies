@@ -1,15 +1,38 @@
+import Gallery from 'components/Gallery';
 import s from './HomePage.module.css';
 
+import { useState, useEffect } from 'react';
+
+import { fetchTrending } from 'services/serviceAPI';
+
 function HomePage() {
+  const [page, setPage] = useState(1);
+  const [movies, setMovies] = useState([]);
+  const [totalPages, setTotalPages] = useState(1);
+
+  useEffect(() => {
+    fetchTrending({ page })
+      .then(data => {
+        setMovies(data.results);
+        setTotalPages(data.total_pages);
+      })
+      .catch(err => console.log(err));
+  }, [page]);
+
   return (
     <>
       <h2 className="title">Trending movies</h2>
-      <div className={s.homeControls}>
-        <label htmlFor="day">DAY</label>
-        <input id="day" className={s.input} type="radio" value="day"></input>
-        <label htmlFor="week">WEEK</label>
-        <input id="week" className={s.input} type="radio" value="week"></input>
-      </div>
+      {movies && movies.length && (
+        <>
+          <Gallery movies={movies} keyWord={'trending'}></Gallery>
+          {/* <Pagination
+            page={page}
+            totalPages={totalPages}
+            onClick={handlePageChange}
+            movies={movies}
+          /> */}
+        </>
+      )}
     </>
   );
 }

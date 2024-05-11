@@ -1,15 +1,14 @@
-// import s from './Gallery.module.css';
+import s from './Gallery.module.css';
 
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-// import { getSlug } from 'services/serviceSlugify';
-// import MovieCard from 'components/MovieCard';
+import { getSlug } from 'services/serviceSlugify';
+import MovieCard from 'components/MovieCard';
 
 function Gallery({ movies, location, keyWord }) {
   return (
     <>
-      <p>gallery</p>
-      {/* <ul className={s.gallery}>
+      <ul className={s.gallery}>
         {movies.map(el => (
           <li className={s.galleryItem} id={el.id} key={el.id}>
             <Link
@@ -23,7 +22,7 @@ function Gallery({ movies, location, keyWord }) {
             </Link>
           </li>
         ))}
-      </ul> */}
+      </ul>
     </>
   );
 }
