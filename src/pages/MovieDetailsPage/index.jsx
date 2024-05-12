@@ -1,7 +1,7 @@
 import s from './MovieDetailsPage.module.css';
 import fallbackPhoto from 'images/fallbackPhoto.jpg';
 
-import { useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { fetchMovieById } from 'services/serviceAPI';
 import { useEffect } from 'react';
@@ -13,6 +13,7 @@ const getGradient = data => {
 };
 
 function MovieDetailsPage() {
+  const location = useLocation();
   const { movieId } = useParams();
   const [status, setStatus] = useState('');
   const [movie, setMovie] = useState({});
@@ -26,10 +27,10 @@ function MovieDetailsPage() {
       .catch(err => setStatus('rejected'));
   }, [id]);
 
-  console.log(movieId);
   if (status === 'resolved') {
     return (
       <div className={s.movieCard}>
+        <Link to={location.state ?? '/movies'}>Go back</Link>
         <h2 className={s.title}>
           {movie.title}
           <span className={s.titleDate}>
