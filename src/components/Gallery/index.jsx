@@ -15,7 +15,7 @@ function Gallery({ movies, location, keyWord }) {
               className={s.galleryLink}
               to={{
                 pathname: `/movies/${getSlug(el)}`,
-                state: { from: location, keyWord },
+                // state: { from: location, keyWord },
               }}
             >
               <MovieCard movie={el} />
