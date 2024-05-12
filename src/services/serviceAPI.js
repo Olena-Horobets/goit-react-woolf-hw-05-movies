@@ -17,7 +17,7 @@ export function fetchTrending({ page }) {
 
 export function fetchMovieByQuery({ query, page }) {
   return fetchWithErrorHandling(
-    `${BASE_URL}search/movie?api_key=${KEY}&language=en-US&page=1&include_adult=false&query=${query}&page=${page}`
+    `${BASE_URL}search/movie?api_key=${KEY}&language=en-US&include_adult=false&query=${query}&page=${page}`
   );
 }
 

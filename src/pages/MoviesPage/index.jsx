@@ -5,31 +5,38 @@ import { Pagination } from 'components/Pagination';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { fetchMovieByQuery } from 'services/serviceAPI';
+import { useSearchParams } from 'react-router-dom';
 
 function MoviesPage() {
-  const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
   const [movies, setMovies] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('query') ?? '';
+
   useEffect(() => {
-    if (!query.trim().length) {
+    if (!query?.trim().length) {
       setMovies([]);
       return;
     }
 
-    fetchMovieByQuery({ query, page })
-      .then(data => {
-        setMovies(data.results);
-        setTotalPages(data.total_pages);
-      })
-      .catch(err => console.log(err));
+    query &&
+      fetchMovieByQuery({ query: query, page })
+        .then(data => {
+          console.log(query);
+          setMovies(data.results);
+          setTotalPages(data.total_pages);
+        })
+        .catch(err => console.log(err));
   }, [page, query]);
 
   const onInputChange = e => {
-    setQuery(e.target.value);
+    // setQuery(e.target.value);
     setPage(1);
     const query = e.target.value;
+
+    setSearchParams({ query });
 
     // history.push({
     //   ...location,
@@ -45,6 +52,7 @@ function MoviesPage() {
       : (newPage = Number(page) + 1);
 
     setPage(newPage);
+    // setSearchParams({ page: newPage });
   };
 
   return (
