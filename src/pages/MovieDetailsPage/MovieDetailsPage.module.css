@@ -51,6 +51,8 @@
 
 .overview {
   width: 440px;
+  /* display: flex;
+  flex-direction: column; */
 }
 
 .genres {

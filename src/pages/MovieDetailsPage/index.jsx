@@ -1,8 +1,14 @@
 import s from './MovieDetailsPage.module.css';
 import fallbackPhoto from 'images/fallbackPhoto.jpg';
 
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useState } from 'react';
+import {
+  NavLink,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
+import { Suspense, useState } from 'react';
 import { fetchMovieById } from 'services/serviceAPI';
 import { useEffect } from 'react';
 import ErrorMessage from 'components/ErrorMessage';
@@ -84,9 +90,9 @@ function MovieDetailsPage() {
                       )})`,
                     }}
                   >
-                    <p className={s.ratingNumber}>{`${
+                    <p className={s.ratingNumber}>{`${Math.round(
                       movie.vote_average * 10
-                    } %`}</p>
+                    )} %`}</p>
                   </div>
                 </div>
               )}
@@ -111,6 +117,33 @@ function MovieDetailsPage() {
                   </ul>
                 </>
               ) : null}
+            </div>
+
+            <div className={s.additional}>
+              <NavLink
+                to={`cast`}
+                state={location}
+                className={({ isActive }) =>
+                  isActive ? s['activeBtn'] : s['castBtn']
+                }
+              >
+                CAST
+              </NavLink>
+              <NavLink
+                to={`reviews`}
+                state={location}
+                className={({ isActive }) =>
+                  isActive ? s['activeBtn'] : s['reviewsBtn']
+                }
+              >
+                REVIEWS
+              </NavLink>
+
+              <div className={s.infoWrapper}>
+                <Suspense fallback={<p>...loading</p>}>
+                  <Outlet />
+                </Suspense>
+              </div>
             </div>
           </div>
         </div>
