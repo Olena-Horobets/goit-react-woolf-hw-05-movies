@@ -34,11 +34,12 @@ function MoviesPage() {
   }, [page, query]);
 
   const onInputChange = e => {
-    // setSearchParams({ page: 1 });
-    // setSearchParams(data => console.log(data));
     const query = e.target.value;
-
-    setSearchParams({ query });
+    setSearchParams(searchParams => {
+      searchParams.set('query', query);
+      searchParams.set('page', 1);
+      return searchParams;
+    });
   };
 
   const handlePageChange = e => {
@@ -48,7 +49,10 @@ function MoviesPage() {
       ? (newPage = Number(page) - 1)
       : (newPage = Number(page) + 1);
 
-    // setSearchParams({ page: newPage });
+    setSearchParams(searchParams => {
+      searchParams.set('page', newPage);
+      return searchParams;
+    });
   };
 
   return (

@@ -1,12 +1,13 @@
 import s from './MovieDetailsPage.module.css';
 import fallbackPhoto from 'images/fallbackPhoto.jpg';
 
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { fetchMovieById } from 'services/serviceAPI';
 import { useEffect } from 'react';
 import ErrorMessage from 'components/ErrorMessage';
 import { parseSlug } from 'services/serviceSlugify';
+import Button from 'components/Button';
 
 const getGradient = data => {
   return `#ff4c29 0deg ${data * 36}deg, #ffffff77 ${data * 36}deg 360deg`;
@@ -14,11 +15,17 @@ const getGradient = data => {
 
 function MovieDetailsPage() {
   const location = useLocation();
+  const navigate = useNavigate();
+
   const { movieId } = useParams();
   const [status, setStatus] = useState('');
   const [movie, setMovie] = useState({});
 
   const id = parseSlug(movieId);
+
+  const onGoBackClick = () => {
+    navigate(location.state ?? '/movies');
+  };
 
   useEffect(() => {
     setStatus('pending');
@@ -30,7 +37,12 @@ function MovieDetailsPage() {
   if (status === 'resolved') {
     return (
       <div className={s.movieCard}>
-        <Link to={location.state ?? '/movies'}>Go back</Link>
+        <Button
+          styledClass={'backBtn'}
+          type="button"
+          onClick={onGoBackClick}
+          text={'Go back'}
+        />
         <h2 className={s.title}>
           {movie.title}
           <span className={s.titleDate}>

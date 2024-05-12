@@ -4,10 +4,12 @@ import { useState, useEffect } from 'react';
 
 import { fetchTrending } from 'services/serviceAPI';
 import { Pagination } from 'components/Pagination';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 function HomePage() {
-  const [page, setPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const page = searchParams.get('page') ?? 1;
   const [movies, setMovies] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
 
@@ -29,7 +31,10 @@ function HomePage() {
       ? (newPage = Number(page) - 1)
       : (newPage = Number(page) + 1);
 
-    setPage(newPage);
+    setSearchParams(searchParams => {
+      searchParams.set('page', newPage);
+      return searchParams;
+    });
   };
 
   return (
