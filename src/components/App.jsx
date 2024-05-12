@@ -3,13 +3,13 @@ import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 
-import Navigation from './Navigation';
-import ErrorMessage from './ErrorMessage';
-import Cast from './Cast';
-import Reviews from './Reviews';
+const Navigation = lazy(() => import('components/Navigation'));
 const HomePage = lazy(() => import('pages/HomePage'));
 const MovieDetailsPage = lazy(() => import('pages/MovieDetailsPage'));
 const MoviesPage = lazy(() => import('pages/MoviesPage'));
+const Cast = lazy(() => import('components/Cast'));
+const Reviews = lazy(() => import('components/Reviews'));
+const ErrorMessage = lazy(() => import('components/ErrorMessage'));
 
 export const App = () => {
   return (
