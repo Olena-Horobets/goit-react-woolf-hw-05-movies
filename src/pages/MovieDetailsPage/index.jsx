@@ -122,19 +122,21 @@ function MovieDetailsPage() {
             <div className={s.additional}>
               <NavLink
                 to={`cast`}
-                state={location}
+                state={location.state}
                 className={({ isActive }) =>
                   isActive ? s['activeBtn'] : s['castBtn']
                 }
+                // state=
               >
                 CAST
               </NavLink>
               <NavLink
                 to={`reviews`}
-                state={location}
+                state={location.state}
                 className={({ isActive }) =>
                   isActive ? s['activeBtn'] : s['reviewsBtn']
                 }
+                // state=
               >
                 REVIEWS
               </NavLink>

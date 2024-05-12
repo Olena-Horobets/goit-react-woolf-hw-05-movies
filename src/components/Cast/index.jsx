@@ -1,36 +1,46 @@
-// import s from './Cast.module.css';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { fetchMovieCast } from 'services/serviceAPI';
+import { parseSlug } from 'services/serviceSlugify';
+import fallbackPhoto from 'images/fallbackPhoto.jpg';
 
-// import { useState, useEffect } from 'react';
-// import { useLocation } from 'react-router';
-// import { Link, useParams } from 'react-router-dom';
-
-// import { fetchMovieCast } from 'services/serviceAPI';
-// import { getSlug, parseSlug } from 'services/serviceSlugify';
-// import Button from 'components/Button';
+const IMG_URL = 'https://media.themoviedb.org/t/p/w220_and_h330_face';
 
 function Cast() {
-  // const location = useLocation();
+  const { movieId } = useParams();
+  const id = parseSlug(movieId);
+  const [cast, setCast] = useState([]);
 
-  // const { slug } = useParams();
-  // const movieId = parseSlug(slug);
+  useEffect(() => {
+    fetchMovieCast(id)
+      .then(data => {
+        setCast(data.cast);
+      })
+      .catch(err => console.log(err));
+  }, [id, movieId]);
 
-  // const [cast, setCast] = useState([]);
-
-  return (
-    <>
-      {/* {cast && cast.length ? (
-        <>
-          <ul>
-            {cast.map(el => (
-              <li key={el.id} className={s.castItem}></li>
-            ))}
-          </ul>
-        </>
-      ) : (
-        <p>currently there is no info</p>
-      )} */}
-      <p>cast</p>
-    </>
+  return cast ? (
+    <ul>
+      {cast.map(el => {
+        return (
+          <li key={el.id}>
+            <h3>Name: {el.name}</h3>
+            <p>Popularity: {el.popularity}</p>
+            <img
+              style={{ width: 100 }}
+              alt={el.name}
+              src={
+                el.profile_path
+                  ? `${IMG_URL}${el.profile_path}`
+                  : `${fallbackPhoto}`
+              }
+            ></img>
+          </li>
+        );
+      })}
+    </ul>
+  ) : (
+    <p>currently there's no info</p>
   );
 }
 
