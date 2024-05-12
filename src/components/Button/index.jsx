@@ -3,6 +3,7 @@ import s from './Button.module.css';
 function Button({
   type,
   onClick,
+  styledClass,
   text = '',
   disabled = false,
   dataAction = null,
@@ -13,6 +14,7 @@ function Button({
       <button
         type={type}
         onClick={onClick}
+        className={s[styledClass]}
         disabled={disabled}
         data-action={dataAction}
       >
